@@ -1,0 +1,38 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pymysql = "*"
+apscheduler = "*"
+click = "*"
+crypto = "*"
+kafka = "*"
+pycrypto = "*"
+pycurl = "*"
+pysocks = "*"
+rainbow = "*"
+rainbow-logging-handler = "*"
+redis = "*"
+requests = "*"
+sphinx = "*"
+tornado = "*"
+tornado-mysql = "*"
+tornado-redis = "*"
+watchdog = "*"
+werkzeug = "*"
+"urllib3" = "*"
+"m2crypto" = "*"
+configparser = "*"
+tornadis = "*"
+aiomysql = "*"
+aioredis = "*"
+aiokafka = "*"
+aiojobs = "*"
+aiorwlock = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
