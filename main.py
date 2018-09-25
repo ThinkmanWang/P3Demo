@@ -2,7 +2,7 @@
 
 from thinkutils.log.log import g_logger
 from thinkutils.datetime.datetime_utils import *
+from MyTorEchoServer import MyTorEchoServer
 
-g_logger.info("Hello World")
-g_logger.info(today())
-g_logger.info(get_current_time_str())
+if __name__ == '__main__':
+    MyTorEchoServer.start_server()
