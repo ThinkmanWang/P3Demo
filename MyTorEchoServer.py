@@ -11,6 +11,8 @@ from tornado import gen
 from tornado.iostream import StreamClosedError
 from tornado.tcpclient import TCPClient
 from tornado.tcpserver import TCPServer
+from tornado.platform.asyncio import to_tornado_future
+
 
 from thinkutils.log.log import g_logger
 from Constants import *
@@ -33,6 +35,10 @@ class TCPConnection(object):
             html = await self.fetch(session, 'http://ip.cn')
             return html
 
+    async def sleep(self, nTime):
+        await asyncio.sleep(3)
+        return "123"
+
     @gen.coroutine
     def on_close(self):
         if self.__stream is not None and False == self.__stream.closed():
@@ -44,7 +50,8 @@ class TCPConnection(object):
         try:
             szData = yield self.__stream.read_until(EOF.encode(ENCODING))
             yield self.__stream.write(szData.replace(EOF.encode(ENCODING), "".encode(ENCODING)))
-            szIP = yield self.get_ip()
+            szIP = yield to_tornado_future(self.get_ip())
+            # szIP = yield IOLoop.current().spawn_callback(self.sleep, 3)
             yield self.__stream.write(szIP.encode(ENCODING))
             yield self.__stream.write(EOF.encode(ENCODING))
         except Exception as e:
