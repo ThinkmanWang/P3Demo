@@ -58,16 +58,22 @@ class TCPConnection(object):
 
     @gen.coroutine
     def on_connect(self):
-        print(self.test())
-        print(self.test1())
-        print(self.test2())
+        # print(self.test())
+        # print(self.test1())
+        # print(self.test2())
 
         try:
-            szData = yield self.__stream.read_until(EOF.encode(ENCODING))
-            yield self.__stream.write(szData.replace(EOF.encode(ENCODING), "".encode(ENCODING)))
-            szIP = yield self.get_ip()
-            yield self.__stream.write(szIP.encode(ENCODING))
-            yield self.__stream.write(EOF.encode(ENCODING))
+            szData = yield self.__stream.read_until(EOF)
+            g_logger.info(str(szData, encoding='utf-8'))
+
+            yield self.__stream.write(szData.replace(EOF, "".encode(ENCODING)))
+
+            # szIP = yield self.get_ip()
+            # yield self.__stream.write(szIP.encode(ENCODING))
+            yield self.__stream.write(b'hehe')
+            yield self.__stream.write('hehe'.encode(ENCODING))
+            yield self.__stream.write(EOF)
+
         except Exception as e:
             pass
 

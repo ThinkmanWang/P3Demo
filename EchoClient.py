@@ -13,14 +13,22 @@ from tornado.tcpserver import TCPServer
 
 from thinkutils.log.log import g_logger
 from Constants import *
+from thinkutils.common_utils.StringUtils import *
 
 @gen.coroutine
 def echo(stream, text):
     """Send the text to the server and print the reply."""
-    if text[-1] != EOF:
-        text = text + EOF
+    if is_empty_string(text):
+        raise gen.Return()
+
+    bStr = text.encode(ENCODING)
+    print(type(text))
+    print(type(bStr))
+
     yield stream.write(text.encode(ENCODING))
-    reply = yield stream.read_until(EOF.encode(ENCODING))
+    yield stream.write(EOF)
+
+    reply = yield stream.read_until(EOF)
     print(reply.strip())
 
 @gen.coroutine

@@ -1,4 +1,4 @@
 # -*- coding: UTF-8 -*-
 
-EOF = '\r\n'
+EOF = b'\r\n'
 ENCODING = 'utf-8'
