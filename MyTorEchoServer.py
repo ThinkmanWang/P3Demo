@@ -31,24 +31,10 @@ class TCPConnection(object):
             return await response.text()
 
     async def get_ip(self):
+        await asyncio.sleep(20)
         async with aiohttp.ClientSession() as session:
             html = await self.fetch(session, 'http://ip.cn')
             return html
-
-    async def sleep(self, nTime):
-        await asyncio.sleep(3)
-        return "123"
-
-    @gen.coroutine
-    def test(self):
-        raise gen.Return(1)
-
-    @asyncio.coroutine
-    def test1(self):
-        return 1
-
-    async def test2(self):
-        return 3
 
     @gen.coroutine
     def on_close(self):
@@ -58,9 +44,6 @@ class TCPConnection(object):
 
     @gen.coroutine
     def on_connect(self):
-        # print(self.test())
-        # print(self.test1())
-        # print(self.test2())
 
         try:
             szData = yield self.__stream.read_until(EOF)
@@ -68,8 +51,8 @@ class TCPConnection(object):
 
             yield self.__stream.write(szData.replace(EOF, "".encode(ENCODING)))
 
-            # szIP = yield self.get_ip()
-            # yield self.__stream.write(szIP.encode(ENCODING))
+            szIP = yield self.get_ip()
+            yield self.__stream.write(szIP.encode(ENCODING))
             yield self.__stream.write(b'hehe')
             yield self.__stream.write('hehe'.encode(ENCODING))
             yield self.__stream.write(EOF)
