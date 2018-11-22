@@ -31,6 +31,10 @@ aioredis = "*"
 aiokafka = "*"
 aiojobs = "*"
 aiorwlock = "*"
+dbutils = "*"
+numpy = "*"
+matplotlib = "*"
+sympy = "*"
 
 [dev-packages]
 
